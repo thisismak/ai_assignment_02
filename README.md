@@ -14,17 +14,35 @@ https://www.python.org/downloads/release/python-3100/
 Python + Python Debugger
 3. 升級 pip 到最新版本
 python -m pip install --upgrade pip
-4. 安裝依賴
+4. 安裝C++
+https://aka.ms/vs/17/release/vc_redist.x64.exe
+5. 安裝依賴
 python -m pip install pillow tensorflow imagehash numpy requests playwright
 playwright install
-5. TensorFlow 2.16.1 是已知與 Windows 上的 Python 3.10 兼容的穩定版本。
+6. TensorFlow 2.16.1 是已知與 Windows 上的 Python 3.10 兼容的穩定版本。
 pip uninstall tensorflow
 pip install tensorflow==2.16.1
 pip show tensorflow
-6. 運行程式
+7. 運行程式
 python script.py
+
+
 - 運作日誌
-  -  breed_distribution.csv
+## script result
+$ python clean_dataset.py
+2025-06-09 14:27:20.389869: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.    
+2025-06-09 14:27:24.775534: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.    
+Downloading data from https://storage.googleapis.com/tensorflow/keras-applications/resnet/resnet50_weights_tf_dim_ordering_tf_kernels.h5
+102967424/102967424 ━━━━━━━━━━━━━━━━━━━━ 29s 0us/step  
+Downloading data from https://storage.googleapis.com/download.tensorflow.org/data/ImageNetLabels.txt
+10484/10484 ━━━━━━━━━━━━━━━━━━━━ 0s 0us/step
+清理統計: {'清理前總圖片數': 4000, '移除的重複圖片數': 99, '移除的不相關圖片數': 2311, '清理後總圖 
+片數': 1590, '唯一網域數': 2, '品種分佈': {'Dachshund': 109, 'Maltese': 205, 'Pomeranian': 214, 'Chihuahua': 163, 'Poodle': 133, 'Shih Tzu': 150, 'Miniature Schnauzer': 172, 'Yorkshire Terrier': 201, 'Shiba Inu': 50, 'Labrador Retriever': 193}}
+數據集清理成功完成。
+最終統計: {'清理前總圖片數': 4000, '移除的重複圖片數': 99, '移除的不相關圖片數': 2311, '清理後總圖 
+片數': 1590, '唯一網域數': 2, '品種分佈': {'Dachshund': 109, 'Maltese': 205, 'Pomeranian': 214, 'Chihuahua': 163, 'Poodle': 133, 'Shih Tzu': 150, 'Miniature Schnauzer': 172, 'Yorkshire Terrier': 201, 'Shiba Inu': 50, 'Labrador Retriever': 193}, '估計爬取頁數': 70}
+
+## breed_distribution.csv
 breed,image_count
 Maltese,400
 Yorkshire Terrier,400
@@ -37,103 +55,83 @@ Dachshund,400
 Shiba Inu,400
 Labrador Retriever,400
 
-  - image_failure_report.csv
+
+## cleaning_report.csv
+指標,值
+清理前總圖片數,4000
+移除的重複圖片數,99
+移除的不相關圖片數,2311
+清理後總圖片數,1590
+唯一網域數,2
+品種分佈,"{'Dachshund': 109, 'Maltese': 205, 'Pomeranian': 214, 'Chihuahua': 163, 'Poodle': 133, 'Shih Tzu': 150, 'Miniature Schnauzer': 172, 'Yorkshire Terrier': 201, 'Shiba Inu': 50, 'Labrador Retriever': 193}"
+估計爬取頁數,70
+
+
+## image_cleaning_output.log
+2025-06-09 14:28:10,916 - INFO - 圖像 dog_images\Dachshund\Dachshund_0_0.jpg 分類為狗 (類別: redbone, 置信度: 0.82)
+2025-06-09 14:28:11,262 - WARNING - 圖像 dog_images\Dachshund\Dachshund_1_1.jpg 未分類為狗 (類別: Rhodesian ridgeback, 置信度: 0.33)
+2025-06-09 14:28:11,262 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_1_1.jpg
+2025-06-09 14:28:11,651 - INFO - 圖像 dog_images\Dachshund\Dachshund_2_2.jpg 分類為狗 (類別: black-and-tan coonhound, 置信度: 0.81)
+2025-06-09 14:28:12,010 - WARNING - 圖像 dog_images\Dachshund\Dachshund_3_3.jpg 未分類為狗 (類別: Sussex spaniel, 置信度: 0.20)
+2025-06-09 14:28:12,010 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_3_3.jpg
+2025-06-09 14:28:12,415 - WARNING - 圖像 dog_images\Dachshund\Dachshund_4_4.jpg 未分類為狗 (類別: miniature pinscher, 置信度: 0.60)
+2025-06-09 14:28:12,415 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_4_4.jpg
+2025-06-09 14:28:12,775 - INFO - 圖像 dog_images\Dachshund\Dachshund_5_5.jpg 分類為狗 (類別: black-and-tan coonhound, 置信度: 0.79)
+2025-06-09 14:28:13,103 - INFO - 圖像 dog_images\Dachshund\Dachshund_6_6.jpg 分類為狗 (類別: Irish setter, 置信度: 0.86)
+2025-06-09 14:28:13,448 - WARNING - 圖像 dog_images\Dachshund\Dachshund_7_7.jpg 未分類為狗 (類別: redbone, 置信度: 0.43)
+2025-06-09 14:28:13,448 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_7_7.jpg
+2025-06-09 14:28:13,771 - WARNING - 圖像 dog_images\Dachshund\Dachshund_8_8.jpg 未分類為狗 (類別: whippet, 置信度: 0.25)
+2025-06-09 14:28:13,771 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_8_8.jpg
+2025-06-09 14:28:14,119 - WARNING - 圖像 dog_images\Dachshund\Dachshund_9_9.jpg 未分類為狗 (類別: Doberman, 置信度: 0.13)
+2025-06-09 14:28:14,119 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_9_9.jpg
+2025-06-09 14:28:14,448 - WARNING - 圖像 dog_images\Dachshund\Dachshund_10_10.jpg 未分類為狗 (類別: golden retriever, 置信度: 0.41)
+2025-06-09 14:28:14,448 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_10_10.jpg
+2025-06-09 14:28:14,792 - WARNING - 圖像 dog_images\Dachshund\Dachshund_11_11.jpg 未分類為狗 (類別: vizsla, 置信度: 0.65)
+2025-06-09 14:28:14,792 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_11_11.jpg
+
+## image_cleaning.log
+2025-06-09 14:28:10,916 - INFO - 圖像 dog_images\Dachshund\Dachshund_0_0.jpg 分類為狗 (類別: redbone, 置信度: 0.82)
+2025-06-09 14:28:11,262 - WARNING - 圖像 dog_images\Dachshund\Dachshund_1_1.jpg 未分類為狗 (類別: Rhodesian ridgeback, 置信度: 0.33)
+2025-06-09 14:28:11,262 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_1_1.jpg
+2025-06-09 14:28:11,651 - INFO - 圖像 dog_images\Dachshund\Dachshund_2_2.jpg 分類為狗 (類別: black-and-tan coonhound, 置信度: 0.81)
+2025-06-09 14:28:12,010 - WARNING - 圖像 dog_images\Dachshund\Dachshund_3_3.jpg 未分類為狗 (類別: Sussex spaniel, 置信度: 0.20)
+2025-06-09 14:28:12,010 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_3_3.jpg
+2025-06-09 14:28:12,415 - WARNING - 圖像 dog_images\Dachshund\Dachshund_4_4.jpg 未分類為狗 (類別: miniature pinscher, 置信度: 0.60)
+2025-06-09 14:28:12,415 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_4_4.jpg
+2025-06-09 14:28:12,775 - INFO - 圖像 dog_images\Dachshund\Dachshund_5_5.jpg 分類為狗 (類別: black-and-tan coonhound, 置信度: 0.79)
+2025-06-09 14:28:13,103 - INFO - 圖像 dog_images\Dachshund\Dachshund_6_6.jpg 分類為狗 (類別: Irish setter, 置信度: 0.86)
+2025-06-09 14:28:13,448 - WARNING - 圖像 dog_images\Dachshund\Dachshund_7_7.jpg 未分類為狗 (類別: redbone, 置信度: 0.43)
+2025-06-09 14:28:13,448 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_7_7.jpg
+2025-06-09 14:28:13,771 - WARNING - 圖像 dog_images\Dachshund\Dachshund_8_8.jpg 未分類為狗 (類別: whippet, 置信度: 0.25)
+2025-06-09 14:28:13,771 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_8_8.jpg
+2025-06-09 14:28:14,119 - WARNING - 圖像 dog_images\Dachshund\Dachshund_9_9.jpg 未分類為狗 (類別: Doberman, 置信度: 0.13)
+2025-06-09 14:28:14,119 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_9_9.jpg
+2025-06-09 14:28:14,448 - WARNING - 圖像 dog_images\Dachshund\Dachshund_10_10.jpg 未分類為狗 (類別: golden retriever, 置信度: 0.41)
+2025-06-09 14:28:14,448 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_10_10.jpg
+2025-06-09 14:28:14,792 - WARNING - 圖像 dog_images\Dachshund\Dachshund_11_11.jpg 未分類為狗 (類別: vizsla, 置信度: 0.65)
+2025-06-09 14:28:14,792 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_11_11.jpg
+
+## image_failure_report.csv
 keyword,url,alt_text,failure_stage,failure_reason
-Poodle,https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg,Google,processing,Compression or processing error
-Shiba Inu,https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg,Google,processing,Compression or processing error
-Shiba Inu,https://r.bing.com/rp/UYtUYDcn1oZlFG-YfBPz59zejYI.svg,拖放圖片到這裡,processing,Compression or processing error
-Shiba Inu,https://r.bing.com/rp/KC_nX2_tPPyFvVw1RK20Yu1FyDk.svg,貼上圖片或網址,processing,Compression or processing error
 Dachshund,https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg,Google,processing,Compression or processing error
-Miniature Schnauzer,https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg,Google,processing,Compression or processing error
-Miniature Schnauzer,https://r.bing.com/rp/UYtUYDcn1oZlFG-YfBPz59zejYI.svg,拖放圖片到這裡,processing,Compression or processing error
-Miniature Schnauzer,https://r.bing.com/rp/KC_nX2_tPPyFvVw1RK20Yu1FyDk.svg,貼上圖片或網址,processing,Compression or processing error
-Miniature Schnauzer,https://r.bing.com/rp/hx-eea1zqtCz4K0bW2uH_oN7Fs4.jpg,太陽眼鏡,database,Duplicate URL
-Miniature Schnauzer,https://r.bing.com/rp/ln5TQq6AIWfcBlduDk-5bnaJMpY.jpg,雪梨歌劇院,database,Duplicate URL
-Miniature Schnauzer,https://r.bing.com/rp/cfeVf2-uV0hUo3ToTbLjztuomWk.jpg,盧浮宮,database,Duplicate URL
-Miniature Schnauzer,https://r.bing.com/rp/lvCKZ07bEYtoYmY62ifMzVa0RIE.jpg,兩隻狗,database,Duplicate URL
-Miniature Schnauzer,https://r.bing.com/rp/ni3MyKKVu9pK0SgY6gb6Z2NOGpg.jpg,手工海草,database,Duplicate URL
-Miniature Schnauzer,https://r.bing.com/rp/-A5v-hTPFRzEXEMXLO7124F8nt0.svg,GIF 自動播放設定,processing,Compression or processing error
-Miniature Schnauzer,https://r.bing.com/rp/Q5BJPjebyYN5QiqznkcMQmLrF9U.svg,關閉對話方塊,processing,Compression or processing error
-Chihuahua,https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg,Google,processing,Compression or processing error
-Yorkshire Terrier,https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg,Google,processing,Compression or processing error
-Yorkshire Terrier,https://r.bing.com/rp/UYtUYDcn1oZlFG-YfBPz59zejYI.svg,拖放圖片到這裡,processing,Compression or processing error
-Yorkshire Terrier,https://r.bing.com/rp/KC_nX2_tPPyFvVw1RK20Yu1FyDk.svg,貼上圖片或網址,processing,Compression or processing error
-Yorkshire Terrier,https://r.bing.com/rp/hx-eea1zqtCz4K0bW2uH_oN7Fs4.jpg,太陽眼鏡,database,Duplicate URL
-Yorkshire Terrier,https://r.bing.com/rp/ln5TQq6AIWfcBlduDk-5bnaJMpY.jpg,雪梨歌劇院,database,Duplicate URL
-Yorkshire Terrier,https://r.bing.com/rp/cfeVf2-uV0hUo3ToTbLjztuomWk.jpg,盧浮宮,database,Duplicate URL
-Yorkshire Terrier,https://r.bing.com/rp/lvCKZ07bEYtoYmY62ifMzVa0RIE.jpg,兩隻狗,database,Duplicate URL
-Yorkshire Terrier,https://r.bing.com/rp/ni3MyKKVu9pK0SgY6gb6Z2NOGpg.jpg,手工海草,database,Duplicate URL
-Yorkshire Terrier,https://r.bing.com/rp/-A5v-hTPFRzEXEMXLO7124F8nt0.svg,GIF 自動播放設定,processing,Compression or processing error
-Yorkshire Terrier,https://r.bing.com/rp/Q5BJPjebyYN5QiqznkcMQmLrF9U.svg,關閉對話方塊,processing,Compression or processing error
-Pomeranian,https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg,Google,processing,Compression or processing error
-Pomeranian,https://r.bing.com/rp/UYtUYDcn1oZlFG-YfBPz59zejYI.svg,拖放圖片到這裡,processing,Compression or processing error
-Pomeranian,https://r.bing.com/rp/KC_nX2_tPPyFvVw1RK20Yu1FyDk.svg,貼上圖片或網址,processing,Compression or processing error
-Pomeranian,https://r.bing.com/rp/hx-eea1zqtCz4K0bW2uH_oN7Fs4.jpg,太陽眼鏡,database,Duplicate URL
-Pomeranian,https://r.bing.com/rp/ln5TQq6AIWfcBlduDk-5bnaJMpY.jpg,雪梨歌劇院,database,Duplicate URL
-Pomeranian,https://r.bing.com/rp/cfeVf2-uV0hUo3ToTbLjztuomWk.jpg,盧浮宮,database,Duplicate URL
-Pomeranian,https://r.bing.com/rp/lvCKZ07bEYtoYmY62ifMzVa0RIE.jpg,兩隻狗,database,Duplicate URL
-Pomeranian,https://r.bing.com/rp/ni3MyKKVu9pK0SgY6gb6Z2NOGpg.jpg,手工海草,database,Duplicate URL
-Pomeranian,https://r.bing.com/rp/-A5v-hTPFRzEXEMXLO7124F8nt0.svg,GIF 自動播放設定,processing,Compression or processing error
-Pomeranian,https://r.bing.com/rp/Q5BJPjebyYN5QiqznkcMQmLrF9U.svg,關閉對話方塊,processing,Compression or processing error
 Maltese,https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg,Google,processing,Compression or processing error
-Maltese,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTY_G64jeJMDFue_woAcx4H0EifwWTZTVcRew&s,Maltese vs Poodle: A Comprehensive Guide to Choosing Pet,database,Duplicate URL
-Maltese,https://r.bing.com/rp/UYtUYDcn1oZlFG-YfBPz59zejYI.svg,拖放圖片到這裡,processing,Compression or processing error
-Maltese,https://r.bing.com/rp/KC_nX2_tPPyFvVw1RK20Yu1FyDk.svg,貼上圖片或網址,processing,Compression or processing error
-Maltese,https://r.bing.com/rp/hx-eea1zqtCz4K0bW2uH_oN7Fs4.jpg,太陽眼鏡,database,Duplicate URL
-Maltese,https://r.bing.com/rp/ln5TQq6AIWfcBlduDk-5bnaJMpY.jpg,雪梨歌劇院,database,Duplicate URL
-Maltese,https://r.bing.com/rp/cfeVf2-uV0hUo3ToTbLjztuomWk.jpg,盧浮宮,database,Duplicate URL
-Maltese,https://r.bing.com/rp/lvCKZ07bEYtoYmY62ifMzVa0RIE.jpg,兩隻狗,database,Duplicate URL
-Maltese,https://r.bing.com/rp/ni3MyKKVu9pK0SgY6gb6Z2NOGpg.jpg,手工海草,database,Duplicate URL
-Maltese,https://r.bing.com/rp/-A5v-hTPFRzEXEMXLO7124F8nt0.svg,GIF 自動播放設定,processing,Compression or processing error
-Maltese,https://r.bing.com/rp/Q5BJPjebyYN5QiqznkcMQmLrF9U.svg,關閉對話方塊,processing,Compression or processing error
+Maltese,https://r.bing.com/rp/UYtUYDcn1oZlFG-YfBPz59zejYI.svg,在此处拖放图像,processing,Compression or processing error
+Maltese,https://r.bing.com/rp/KC_nX2_tPPyFvVw1RK20Yu1FyDk.svg,粘贴图像或 URL,processing,Compression or processing error
+Maltese,https://r.bing.com/rp/5yVAKe18OXFf_XvuMPJO61GQVsc.svg,筛选器,processing,Compression or processing error
+Maltese,https://r.bing.com/rp/bSmUb4SdiINJy0O6_CJPQxImT6o.svg,筛选器,processing,Compression or processing error
+Maltese,https://r.bing.com/rp/-A5v-hTPFRzEXEMXLO7124F8nt0.svg,GIF 自动播放设置,processing,Compression or processing error
+Maltese,https://r.bing.com/rp/Q5BJPjebyYN5QiqznkcMQmLrF9U.svg,关闭对话框,processing,Compression or processing error
+Pomeranian,https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg,Google,processing,Compression or processing error
+Chihuahua,https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg,Google,processing,Compression or processing error
+Poodle,https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg,Google,processing,Compression or processing error
+Poodle,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTY_G64jeJMDFue_woAcx4H0EifwWTZTVcRew&s,Maltese vs Poodle: A Comprehensive Guide to Choosing Pet,database,Duplicate URL
 Shih Tzu,https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg,Google,processing,Compression or processing error
-Shih Tzu,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQniEVHmU9uLKpoecgWtV20XDcNpXUy3R86Hw&s,Grooming Your Maltese Shih tzu Puppies: Best Practices and Tips - Dog love  Services,database,Duplicate URL
-Shih Tzu,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFVrXURc7Y0ZGYbkMhWIZOTzDQWBEAbhaz-w&s,"Maltese Shih Tzu breed insights: care, personality & expert tips | Lyka Blog",database,Duplicate URL
 Shih Tzu,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVQ0KmkUQUcdtot6WlijmjyudZJVqihRAoCg&s,Maltese Shih Tzu Mix Breed Guide: Characteristics & Facts | Bored Panda,database,Duplicate URL
-Shih Tzu,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSHYTIi1jTmNStAig66jdwIUQTluIRUfAN9A&s,The Maltese Shih Tzu (Malshi): Best Dog Ever! - PetHelpful,database,Duplicate URL
-Shih Tzu,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsCculSlflS5O9eafE4aYIYnrW98G4aSP8MA&s,Maltese Shih Tzu Dog Breed Information | Temperament & Health,database,Duplicate URL
+Shih Tzu,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFVrXURc7Y0ZGYbkMhWIZOTzDQWBEAbhaz-w&s,"Maltese Shih Tzu breed insights: care, personality & expert tips | Lyka Blog",database,Duplicate URL
 Shih Tzu,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_ILr0WWqkqd0usWjlUqKqtxLBO7FVG_3Z2Q&s,Maltese Shih Tzu Dog Breed Information | Temperament & Health,database,Duplicate URL
-Shih Tzu,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIwsjfm68sVvsRPxE9Svo50PsxrHTWZo_PzA&s,Maltese Shih Tzu Dog Breed Information | Temperament & Health,database,Duplicate URL
-Shih Tzu,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTg-HFUxQ_gQAT9qg6ObviVvUgv10LFW53iPg&s,Maltese Shih Tzu Mix: The Affectionate and Playful Malshi,database,Duplicate URL
-Shih Tzu,https://r.bing.com/rp/UYtUYDcn1oZlFG-YfBPz59zejYI.svg,拖放圖片到這裡,processing,Compression or processing error
-Shih Tzu,https://r.bing.com/rp/KC_nX2_tPPyFvVw1RK20Yu1FyDk.svg,貼上圖片或網址,processing,Compression or processing error
-Shih Tzu,https://r.bing.com/rp/hx-eea1zqtCz4K0bW2uH_oN7Fs4.jpg,太陽眼鏡,database,Duplicate URL
-Shih Tzu,https://r.bing.com/rp/ln5TQq6AIWfcBlduDk-5bnaJMpY.jpg,雪梨歌劇院,database,Duplicate URL
-Shih Tzu,https://r.bing.com/rp/cfeVf2-uV0hUo3ToTbLjztuomWk.jpg,盧浮宮,database,Duplicate URL
-Shih Tzu,https://r.bing.com/rp/lvCKZ07bEYtoYmY62ifMzVa0RIE.jpg,兩隻狗,database,Duplicate URL
-Shih Tzu,https://r.bing.com/rp/ni3MyKKVu9pK0SgY6gb6Z2NOGpg.jpg,手工海草,database,Duplicate URL
-Labrador Retriever,https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg,Google,processing,Compression or processing error
-Labrador Retriever,https://r.bing.com/rp/UYtUYDcn1oZlFG-YfBPz59zejYI.svg,拖放圖片到這裡,processing,Compression or processing error
-Labrador Retriever,https://r.bing.com/rp/KC_nX2_tPPyFvVw1RK20Yu1FyDk.svg,貼上圖片或網址,processing,Compression or processing error
-Labrador Retriever,https://r.bing.com/rp/hx-eea1zqtCz4K0bW2uH_oN7Fs4.jpg,太陽眼鏡,database,Duplicate URL
-Labrador Retriever,https://r.bing.com/rp/ln5TQq6AIWfcBlduDk-5bnaJMpY.jpg,雪梨歌劇院,database,Duplicate URL
-Labrador Retriever,https://r.bing.com/rp/cfeVf2-uV0hUo3ToTbLjztuomWk.jpg,盧浮宮,database,Duplicate URL
-Labrador Retriever,https://r.bing.com/rp/lvCKZ07bEYtoYmY62ifMzVa0RIE.jpg,兩隻狗,database,Duplicate URL
-Labrador Retriever,https://r.bing.com/rp/ni3MyKKVu9pK0SgY6gb6Z2NOGpg.jpg,手工海草,database,Duplicate URL
-
-
-  - image_collection.log
-2025-06-08 15:27:52,187 - INFO - Successfully processed image: dog_images\Labrador_Retriever\Labrador_Retriever_391_3991.jpg for breed: Labrador Retriever
-2025-06-08 15:27:52,245 - INFO - Successfully processed image: dog_images\Labrador_Retriever\Labrador_Retriever_392_3992.jpg for breed: Labrador Retriever
-2025-06-08 15:27:52,261 - ERROR - Error processing dog_images\Labrador_Retriever\temp_393_3993.jpg: cannot identify image file 'dog_images\\Labrador_Retriever\\temp_393_3993.jpg'
-2025-06-08 15:27:52,292 - ERROR - Error processing dog_images\Labrador_Retriever\temp_393_3993.jpg: cannot identify image file 'dog_images\\Labrador_Retriever\\temp_393_3993.jpg'
-2025-06-08 15:27:52,575 - INFO - Successfully processed image: dog_images\Labrador_Retriever\Labrador_Retriever_393_3993.jpg for breed: Labrador Retriever
-2025-06-08 15:27:52,641 - INFO - Successfully processed image: dog_images\Labrador_Retriever\Labrador_Retriever_394_3994.jpg for breed: Labrador Retriever
-2025-06-08 15:27:52,669 - INFO - Successfully processed image: dog_images\Labrador_Retriever\Labrador_Retriever_395_3995.jpg for breed: Labrador Retriever
-2025-06-08 15:27:52,727 - INFO - Successfully processed image: dog_images\Labrador_Retriever\Labrador_Retriever_396_3996.jpg for breed: Labrador Retriever
-2025-06-08 15:27:52,797 - INFO - Successfully processed image: dog_images\Labrador_Retriever\Labrador_Retriever_397_3997.jpg for breed: Labrador Retriever
-2025-06-08 15:27:52,885 - INFO - Successfully processed image: dog_images\Labrador_Retriever\Labrador_Retriever_398_3998.jpg for breed: Labrador Retriever
-2025-06-08 15:27:52,937 - INFO - Successfully processed image: dog_images\Labrador_Retriever\Labrador_Retriever_399_3999.jpg for breed: Labrador Retriever
-2025-06-08 15:27:52,953 - INFO - Completed keyword Labrador Retriever, total images: 4000, breed Labrador Retriever: 400
-2025-06-08 15:27:52,964 - INFO - Database verification: 4000 images stored
-2025-06-08 15:27:52,964 - INFO -  ` @     óB z   Ϥ  ơG4000
-2025-06-08 15:27:52,964 - INFO -  ] L  alt 奻 L o     Ϥ  G86834
-2025-06-08 15:27:52,964 - INFO -  U     Ѫ  Ϥ  G0
-2025-06-08 15:27:52,964 - INFO -  B z   Ѫ  Ϥ  G32
-2025-06-08 15:27:52,964 - INFO -     URL   L   Ϥ  G39
-2025-06-08 15:27:52,964 - INFO -  ~ ؤ  G G{'Maltese': 400, 'Yorkshire Terrier': 400, 'Pomeranian': 400, 'Chihuahua': 400, 'Miniature Schnauzer': 400, 'Shih Tzu': 400, 'Poodle': 400, 'Dachshund': 400, 'Shiba Inu': 400, 'Labrador Retriever': 400}
-2025-06-08 15:27:52,964 - INFO - Exported failure report to image_failure_report.csv
-2025-06-08 15:27:52,964 - INFO - Exported breed distribution to breed_distribution.csv
+Shih Tzu,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdEJPkyczCMqpxeivRAtJFvqzw7bx316hj6Q&s,Maltese Shih Tzu Feeding Guide | Dog Feeding Guide | ProDog Raw,database,Duplicate URL
+Shih Tzu,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSHYTIi1jTmNStAig66jdwIUQTluIRUfAN9A&s,The Maltese Shih Tzu (Malshi): Best Dog Ever! - PetHelpful,database,Duplicate URL
+Shih Tzu,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRc1h-A9Xj4dhXlh0jDLt52HpeyEOSPtJC0pQ&s,"Shih Poo | Discover the Shihpoo, a Shih Tzu Poodle Mix Full of Personality",database,Duplicate URL
 
 ## 功能完成度自評
 
