@@ -10,16 +10,18 @@
 - 安裝流程及執行流程
 1. 安裝python 3.10
 https://www.python.org/downloads/release/python-3100/
-2. 升級 pip 到最新版本
+2. VScode中安裝Python插件
+Python + Python Debugger
+3. 升級 pip 到最新版本
 python -m pip install --upgrade pip
-3. 安裝依賴
+4. 安裝依賴
 python -m pip install pillow tensorflow imagehash numpy requests playwright
 playwright install
-4. TensorFlow 2.16.1 是已知與 Windows 上的 Python 3.10 兼容的穩定版本。
+5. TensorFlow 2.16.1 是已知與 Windows 上的 Python 3.10 兼容的穩定版本。
 pip uninstall tensorflow
 pip install tensorflow==2.16.1
 pip show tensorflow
-5. 運行程式
+6. 運行程式
 python script.py
 - 運作日誌
   -  breed_distribution.csv
