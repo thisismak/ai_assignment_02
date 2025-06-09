@@ -1,0 +1,11 @@
+dog_images
+cleaned_dog_images
+temp_images
+*.db
+*.log
+.venv
+log_summary.txt
+*.csv
+training_data
+real_*
+training_*
