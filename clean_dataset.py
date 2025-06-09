@@ -26,6 +26,7 @@ logging.basicConfig(
 DB_NAME = "dog_images.db"
 OUTPUT_DIR = "dog_images"
 CLEANED_DIR = "cleaned_dog_images"
+DISCARDED_DIR = "discarded_images"  # 新增：被移除圖像的目錄
 TARGET_IMAGE_COUNT_MIN = 1000
 TARGET_IMAGE_COUNT_MAX = 5000
 IMAGE_SIZE = (224, 224)
@@ -103,7 +104,7 @@ def export_cleaning_report(stats, filename="cleaning_report.csv"):
     logging.info(f"已導出清理報告到 {filename}")
 
 def clean_dataset():
-    """清理數據集，移除不相關和重複圖像。"""
+    """清理數據集，移除不相關和重複圖像，並將移除的圖像移動到 discarded_images 目錄。"""
     conn, cursor = init_database()
     labels = load_imagenet_labels()
     
@@ -112,6 +113,14 @@ def clean_dataset():
         os.makedirs(CLEANED_DIR)
     for breed in DOG_BREEDS:
         breed_dir = os.path.join(CLEANED_DIR, breed.replace(' ', '_'))
+        if not os.path.exists(breed_dir):
+            os.makedirs(breed_dir)
+    
+    # 創建被移除圖像的目錄
+    if not os.path.exists(DISCARDED_DIR):
+        os.makedirs(DISCARDED_DIR)
+    for breed in DOG_BREEDS:
+        breed_dir = os.path.join(DISCARDED_DIR, breed.replace(' ', '_'))
         if not os.path.exists(breed_dir):
             os.makedirs(breed_dir)
     
@@ -141,16 +150,20 @@ def clean_dataset():
                     logging.info(f"檢測到重複圖像: {filename}")
                     duplicates_removed += 1
                     cursor.execute("DELETE FROM images WHERE id = ?", (img_id,))
+                    # 移動到 discarded_images 目錄
+                    discarded_filename = os.path.join(DISCARDED_DIR, breed.replace(' ', '_'), os.path.basename(filename))
                     if os.path.exists(filename):
-                        os.remove(filename)
+                        shutil.move(filename, discarded_filename)
                     continue
                 seen_hashes.add(img_hash)
         except Exception as e:
             logging.error(f"圖像 {filename} 處理時出錯: {str(e)}")
             irrelevant_removed += 1
             cursor.execute("DELETE FROM images WHERE id = ?", (img_id,))
+            # 移動到 discarded_images 目錄
+            discarded_filename = os.path.join(DISCARDED_DIR, breed.replace(' ', '_'), os.path.basename(filename))
             if os.path.exists(filename):
-                os.remove(filename)
+                shutil.move(filename, discarded_filename)
             continue
         
         # 分類圖像
@@ -158,8 +171,10 @@ def clean_dataset():
             logging.info(f"移除不相關圖像: {filename}")
             irrelevant_removed += 1
             cursor.execute("DELETE FROM images WHERE id = ?", (img_id,))
+            # 移動到 discarded_images 目錄
+            discarded_filename = os.path.join(DISCARDED_DIR, breed.replace(' ', '_'), os.path.basename(filename))
             if os.path.exists(filename):
-                os.remove(filename)
+                shutil.move(filename, discarded_filename)
             continue
         
         # 複製到清理後目錄
@@ -182,8 +197,10 @@ def clean_dataset():
         excess = cleaned_images - TARGET_IMAGE_COUNT_MAX
         for img_id, filename, breed in remaining_images[:excess]:
             cursor.execute("DELETE FROM images WHERE id = ?", (img_id,))
+            # 移動到 discarded_images 目錄
+            discarded_filename = os.path.join(DISCARDED_DIR, breed.replace(' ', '_'), os.path.basename(filename))
             if os.path.exists(filename):
-                os.remove(filename)
+                shutil.move(filename, discarded_filename)
             cleaned_images -= 1
             breed_counts[breed] -= 1
         conn.commit()

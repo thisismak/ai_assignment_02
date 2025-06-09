@@ -1,4 +1,4 @@
-# 習作一：自動搜集圖像數據集與初步處理
+# 習作二：圖像數據集清理與統計
 
 ## 學生資料
 - 姓名：麥志榮
@@ -29,18 +29,18 @@ python script.py
 
 - 運作日誌
 ## script result
+## script result
 $ python clean_dataset.py
-2025-06-09 14:27:20.389869: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.    
-2025-06-09 14:27:24.775534: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.    
+2025-06-09 16:53:21.899207: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-06-09 16:53:32.763149: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
 Downloading data from https://storage.googleapis.com/tensorflow/keras-applications/resnet/resnet50_weights_tf_dim_ordering_tf_kernels.h5
-102967424/102967424 ━━━━━━━━━━━━━━━━━━━━ 29s 0us/step  
+102967424/102967424 ━━━━━━━━━━━━━━━━━━━━ 29s 0us/step
 Downloading data from https://storage.googleapis.com/download.tensorflow.org/data/ImageNetLabels.txt
-10484/10484 ━━━━━━━━━━━━━━━━━━━━ 0s 0us/step
-清理統計: {'清理前總圖片數': 4000, '移除的重複圖片數': 99, '移除的不相關圖片數': 2311, '清理後總圖 
-片數': 1590, '唯一網域數': 2, '品種分佈': {'Dachshund': 109, 'Maltese': 205, 'Pomeranian': 214, 'Chihuahua': 163, 'Poodle': 133, 'Shih Tzu': 150, 'Miniature Schnauzer': 172, 'Yorkshire Terrier': 201, 'Shiba Inu': 50, 'Labrador Retriever': 193}}
+10484/10484 ━━━━━━━━━━━━━━━━━━━━ 0s 0s/step
+清理統計: {'清理前總圖片數': 4000, '移除的重複圖片數': 99, '移除的不相關圖片數': 2311, '清理後總圖片數': 1590, '唯一網域數': 2, '品種分佈': {'Dachshund': 109, 'Maltese': 205, 'Pomeranian': 214, 'Chihuahua': 163, 'Poodle': 133, 'Shih Tzu': 150, 'Miniature Schnauzer': 172, 'Yorkshire Terrier': 201, 'Shiba Inu': 50, 'Labrador Retriever': 193}}
 數據集清理成功完成。
-最終統計: {'清理前總圖片數': 4000, '移除的重複圖片數': 99, '移除的不相關圖片數': 2311, '清理後總圖 
-片數': 1590, '唯一網域數': 2, '品種分佈': {'Dachshund': 109, 'Maltese': 205, 'Pomeranian': 214, 'Chihuahua': 163, 'Poodle': 133, 'Shih Tzu': 150, 'Miniature Schnauzer': 172, 'Yorkshire Terrier': 201, 'Shiba Inu': 50, 'Labrador Retriever': 193}, '估計爬取頁數': 70}
+最終統計: {'清理前總圖片數': 4000, '移除的重複圖片數': 99, '移除的不相關圖片數': 2311, '清理後總圖片數': 1590, '唯一網域數': 2, '品種分佈': {'Dachshund': 109, 'Maltese': 205, 'Pomeranian': 214, 'Chihuahua': 163, 'Poodle': 133, 'Shih Tzu': 150, 'Miniature Schnauzer': 172, 'Yorkshire Terrier': 201, 'Shiba Inu': 50, 'Labrador Retriever': 193}, '估計爬取頁數': 70}
+
 
 ## breed_distribution.csv
 breed,image_count
@@ -68,48 +68,50 @@ Labrador Retriever,400
 
 
 ## image_cleaning_output.log
-2025-06-09 14:28:10,916 - INFO - 圖像 dog_images\Dachshund\Dachshund_0_0.jpg 分類為狗 (類別: redbone, 置信度: 0.82)
-2025-06-09 14:28:11,262 - WARNING - 圖像 dog_images\Dachshund\Dachshund_1_1.jpg 未分類為狗 (類別: Rhodesian ridgeback, 置信度: 0.33)
-2025-06-09 14:28:11,262 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_1_1.jpg
-2025-06-09 14:28:11,651 - INFO - 圖像 dog_images\Dachshund\Dachshund_2_2.jpg 分類為狗 (類別: black-and-tan coonhound, 置信度: 0.81)
-2025-06-09 14:28:12,010 - WARNING - 圖像 dog_images\Dachshund\Dachshund_3_3.jpg 未分類為狗 (類別: Sussex spaniel, 置信度: 0.20)
-2025-06-09 14:28:12,010 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_3_3.jpg
-2025-06-09 14:28:12,415 - WARNING - 圖像 dog_images\Dachshund\Dachshund_4_4.jpg 未分類為狗 (類別: miniature pinscher, 置信度: 0.60)
-2025-06-09 14:28:12,415 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_4_4.jpg
-2025-06-09 14:28:12,775 - INFO - 圖像 dog_images\Dachshund\Dachshund_5_5.jpg 分類為狗 (類別: black-and-tan coonhound, 置信度: 0.79)
-2025-06-09 14:28:13,103 - INFO - 圖像 dog_images\Dachshund\Dachshund_6_6.jpg 分類為狗 (類別: Irish setter, 置信度: 0.86)
-2025-06-09 14:28:13,448 - WARNING - 圖像 dog_images\Dachshund\Dachshund_7_7.jpg 未分類為狗 (類別: redbone, 置信度: 0.43)
-2025-06-09 14:28:13,448 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_7_7.jpg
-2025-06-09 14:28:13,771 - WARNING - 圖像 dog_images\Dachshund\Dachshund_8_8.jpg 未分類為狗 (類別: whippet, 置信度: 0.25)
-2025-06-09 14:28:13,771 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_8_8.jpg
-2025-06-09 14:28:14,119 - WARNING - 圖像 dog_images\Dachshund\Dachshund_9_9.jpg 未分類為狗 (類別: Doberman, 置信度: 0.13)
-2025-06-09 14:28:14,119 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_9_9.jpg
-2025-06-09 14:28:14,448 - WARNING - 圖像 dog_images\Dachshund\Dachshund_10_10.jpg 未分類為狗 (類別: golden retriever, 置信度: 0.41)
-2025-06-09 14:28:14,448 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_10_10.jpg
-2025-06-09 14:28:14,792 - WARNING - 圖像 dog_images\Dachshund\Dachshund_11_11.jpg 未分類為狗 (類別: vizsla, 置信度: 0.65)
-2025-06-09 14:28:14,792 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_11_11.jpg
+2025-06-09 16:54:31,838 - INFO - 圖像 dog_images\Dachshund\Dachshund_0_0.jpg 分類為狗 (類別: redbone, 置信度: 0.82)
+2025-06-09 16:54:32,189 - WARNING - 圖像 dog_images\Dachshund\Dachshund_1_1.jpg 未分類為狗 (類別: Rhodesian ridgeback, 置信度: 0.33)
+2025-06-09 16:54:32,189 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_1_1.jpg
+2025-06-09 16:54:32,597 - INFO - 圖像 dog_images\Dachshund\Dachshund_2_2.jpg 分類為狗 (類別: black-and-tan coonhound, 置信度: 0.81)
+2025-06-09 16:54:32,941 - WARNING - 圖像 dog_images\Dachshund\Dachshund_3_3.jpg 未分類為狗 (類別: Sussex spaniel, 置信度: 0.20)
+2025-06-09 16:54:32,955 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_3_3.jpg
+2025-06-09 16:54:33,308 - WARNING - 圖像 dog_images\Dachshund\Dachshund_4_4.jpg 未分類為狗 (類別: miniature pinscher, 置信度: 0.60)
+2025-06-09 16:54:33,308 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_4_4.jpg
+2025-06-09 16:54:33,716 - INFO - 圖像 dog_images\Dachshund\Dachshund_5_5.jpg 分類為狗 (類別: black-and-tan coonhound, 置信度: 0.79)
+2025-06-09 16:54:34,054 - INFO - 圖像 dog_images\Dachshund\Dachshund_6_6.jpg 分類為狗 (類別: Irish setter, 置信度: 0.86)
+2025-06-09 16:54:34,388 - WARNING - 圖像 dog_images\Dachshund\Dachshund_7_7.jpg 未分類為狗 (類別: redbone, 置信度: 0.43)
+2025-06-09 16:54:34,388 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_7_7.jpg
+2025-06-09 16:54:34,720 - WARNING - 圖像 dog_images\Dachshund\Dachshund_8_8.jpg 未分類為狗 (類別: whippet, 置信度: 0.25)
+2025-06-09 16:54:34,720 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_8_8.jpg
+2025-06-09 16:54:35,022 - WARNING - 圖像 dog_images\Dachshund\Dachshund_9_9.jpg 未分類為狗 (類別: Doberman, 置信度: 0.13)
+2025-06-09 16:54:35,022 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_9_9.jpg
+2025-06-09 16:54:35,343 - WARNING - 圖像 dog_images\Dachshund\Dachshund_10_10.jpg 未分類為狗 (類別: golden retriever, 置信度: 0.41)
+2025-06-09 16:54:35,343 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_10_10.jpg
+2025-06-09 16:54:35,677 - WARNING - 圖像 dog_images\Dachshund\Dachshund_11_11.jpg 未分類為狗 (類別: vizsla, 置信度: 0.65)
+2025-06-09 16:54:35,677 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_11_11.jpg
+
 
 ## image_cleaning.log
-2025-06-09 14:28:10,916 - INFO - 圖像 dog_images\Dachshund\Dachshund_0_0.jpg 分類為狗 (類別: redbone, 置信度: 0.82)
-2025-06-09 14:28:11,262 - WARNING - 圖像 dog_images\Dachshund\Dachshund_1_1.jpg 未分類為狗 (類別: Rhodesian ridgeback, 置信度: 0.33)
-2025-06-09 14:28:11,262 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_1_1.jpg
-2025-06-09 14:28:11,651 - INFO - 圖像 dog_images\Dachshund\Dachshund_2_2.jpg 分類為狗 (類別: black-and-tan coonhound, 置信度: 0.81)
-2025-06-09 14:28:12,010 - WARNING - 圖像 dog_images\Dachshund\Dachshund_3_3.jpg 未分類為狗 (類別: Sussex spaniel, 置信度: 0.20)
-2025-06-09 14:28:12,010 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_3_3.jpg
-2025-06-09 14:28:12,415 - WARNING - 圖像 dog_images\Dachshund\Dachshund_4_4.jpg 未分類為狗 (類別: miniature pinscher, 置信度: 0.60)
-2025-06-09 14:28:12,415 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_4_4.jpg
-2025-06-09 14:28:12,775 - INFO - 圖像 dog_images\Dachshund\Dachshund_5_5.jpg 分類為狗 (類別: black-and-tan coonhound, 置信度: 0.79)
-2025-06-09 14:28:13,103 - INFO - 圖像 dog_images\Dachshund\Dachshund_6_6.jpg 分類為狗 (類別: Irish setter, 置信度: 0.86)
-2025-06-09 14:28:13,448 - WARNING - 圖像 dog_images\Dachshund\Dachshund_7_7.jpg 未分類為狗 (類別: redbone, 置信度: 0.43)
-2025-06-09 14:28:13,448 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_7_7.jpg
-2025-06-09 14:28:13,771 - WARNING - 圖像 dog_images\Dachshund\Dachshund_8_8.jpg 未分類為狗 (類別: whippet, 置信度: 0.25)
-2025-06-09 14:28:13,771 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_8_8.jpg
-2025-06-09 14:28:14,119 - WARNING - 圖像 dog_images\Dachshund\Dachshund_9_9.jpg 未分類為狗 (類別: Doberman, 置信度: 0.13)
-2025-06-09 14:28:14,119 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_9_9.jpg
-2025-06-09 14:28:14,448 - WARNING - 圖像 dog_images\Dachshund\Dachshund_10_10.jpg 未分類為狗 (類別: golden retriever, 置信度: 0.41)
-2025-06-09 14:28:14,448 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_10_10.jpg
-2025-06-09 14:28:14,792 - WARNING - 圖像 dog_images\Dachshund\Dachshund_11_11.jpg 未分類為狗 (類別: vizsla, 置信度: 0.65)
-2025-06-09 14:28:14,792 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_11_11.jpg
+2025-06-09 16:54:31,838 - INFO - 圖像 dog_images\Dachshund\Dachshund_0_0.jpg 分類為狗 (類別: redbone, 置信度: 0.82)
+2025-06-09 16:54:32,189 - WARNING - 圖像 dog_images\Dachshund\Dachshund_1_1.jpg 未分類為狗 (類別: Rhodesian ridgeback, 置信度: 0.33)
+2025-06-09 16:54:32,189 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_1_1.jpg
+2025-06-09 16:54:32,597 - INFO - 圖像 dog_images\Dachshund\Dachshund_2_2.jpg 分類為狗 (類別: black-and-tan coonhound, 置信度: 0.81)
+2025-06-09 16:54:32,941 - WARNING - 圖像 dog_images\Dachshund\Dachshund_3_3.jpg 未分類為狗 (類別: Sussex spaniel, 置信度: 0.20)
+2025-06-09 16:54:32,955 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_3_3.jpg
+2025-06-09 16:54:33,308 - WARNING - 圖像 dog_images\Dachshund\Dachshund_4_4.jpg 未分類為狗 (類別: miniature pinscher, 置信度: 0.60)
+2025-06-09 16:54:33,308 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_4_4.jpg
+2025-06-09 16:54:33,716 - INFO - 圖像 dog_images\Dachshund\Dachshund_5_5.jpg 分類為狗 (類別: black-and-tan coonhound, 置信度: 0.79)
+2025-06-09 16:54:34,054 - INFO - 圖像 dog_images\Dachshund\Dachshund_6_6.jpg 分類為狗 (類別: Irish setter, 置信度: 0.86)
+2025-06-09 16:54:34,388 - WARNING - 圖像 dog_images\Dachshund\Dachshund_7_7.jpg 未分類為狗 (類別: redbone, 置信度: 0.43)
+2025-06-09 16:54:34,388 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_7_7.jpg
+2025-06-09 16:54:34,720 - WARNING - 圖像 dog_images\Dachshund\Dachshund_8_8.jpg 未分類為狗 (類別: whippet, 置信度: 0.25)
+2025-06-09 16:54:34,720 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_8_8.jpg
+2025-06-09 16:54:35,022 - WARNING - 圖像 dog_images\Dachshund\Dachshund_9_9.jpg 未分類為狗 (類別: Doberman, 置信度: 0.13)
+2025-06-09 16:54:35,022 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_9_9.jpg
+2025-06-09 16:54:35,343 - WARNING - 圖像 dog_images\Dachshund\Dachshund_10_10.jpg 未分類為狗 (類別: golden retriever, 置信度: 0.41)
+2025-06-09 16:54:35,343 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_10_10.jpg
+2025-06-09 16:54:35,677 - WARNING - 圖像 dog_images\Dachshund\Dachshund_11_11.jpg 未分類為狗 (類別: vizsla, 置信度: 0.65)
+2025-06-09 16:54:35,677 - INFO - 移除不相關圖像: dog_images\Dachshund\Dachshund_11_11.jpg
+
 
 ## image_failure_report.csv
 keyword,url,alt_text,failure_stage,failure_reason
@@ -132,6 +134,7 @@ Shih Tzu,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_ILr0WWqkqd0usWj
 Shih Tzu,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdEJPkyczCMqpxeivRAtJFvqzw7bx316hj6Q&s,Maltese Shih Tzu Feeding Guide | Dog Feeding Guide | ProDog Raw,database,Duplicate URL
 Shih Tzu,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSHYTIi1jTmNStAig66jdwIUQTluIRUfAN9A&s,The Maltese Shih Tzu (Malshi): Best Dog Ever! - PetHelpful,database,Duplicate URL
 Shih Tzu,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRc1h-A9Xj4dhXlh0jDLt52HpeyEOSPtJC0pQ&s,"Shih Poo | Discover the Shihpoo, a Shih Tzu Poodle Mix Full of Personality",database,Duplicate URL
+
 
 ## 功能完成度自評
 
