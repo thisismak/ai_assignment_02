@@ -25,7 +25,8 @@ pip install tensorflow==2.16.1
 pip show tensorflow
 7. 運行程式
 python script.py
-
+8. 運行程式02
+python clean_dataset.py
 
 - 運作日誌
 ## script result
